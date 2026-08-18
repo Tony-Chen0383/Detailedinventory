@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>二手機盤點格式轉換工具 V2.24</title>
+<title>二手機盤點格式轉換工具 V2.35</title>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <style>
 :root{--navy:#0f2747;--blue:#1d5ca8;--line:#dbe4ef;--text:#172033;--muted:#69778c;--bg:#f4f7fb;--ok:#067647}
@@ -20,40 +20,45 @@ button{height:42px;border:0;border-radius:10px;padding:0 17px;font-weight:800;cu
 
 .category-panel{display:none}.category-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.category-head h2{margin:0}.category-count{font-size:12px;color:#64748b}.category-select-wrap{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}.category-field{display:flex;flex-direction:column;gap:6px;min-width:240px;flex:1 1 320px}.category-select-wrap label{margin:0;font-size:13px}.category-select{width:100%;height:44px;border:1px solid #cfd9e6;border-radius:10px;padding:0 38px 0 12px;background:#fff;color:#172033;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer}
 .checkline{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.checkline label{display:flex;align-items:center;gap:7px;margin:0;font-size:13px;color:#46556a}.hint{font-size:12px;color:#6b7280;line-height:1.7}
-.tablewrap{overflow:auto;border:1px solid #dde5ef;border-radius:12px;max-height:62vh}.tablewrap table{width:100%;border-collapse:separate;border-spacing:0;min-width:900px;font-size:16px}.tablewrap th{position:sticky;top:0;background:var(--navy);color:#fff;padding:9px 4px;text-align:center;white-space:nowrap;z-index:1;font-size:16px;font-weight:800}.tablewrap td{border-bottom:1px solid #edf1f6;border-right:1px solid #f1f4f8;padding:8px 4px;text-align:center;vertical-align:middle;font-size:16px;font-weight:700;line-height:1.15}.tablewrap tbody tr:nth-child(even){background:#fafcff}.tablewrap td.model,.tablewrap td.note{text-align:left;white-space:normal;word-break:break-word;overflow:visible;text-overflow:clip;min-width:360px}.tablewrap td.special{width:4.4em;min-width:4.4em;max-width:4.4em;white-space:nowrap}.tablewrap td.grade{white-space:nowrap;word-break:keep-all;line-height:1.15;padding-top:6px;padding-bottom:6px;padding-left:1px;padding-right:1px;text-align:center!important;vertical-align:middle;font-size:15px}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){width:6.4ch;min-width:6.4ch;max-width:6.4ch;padding-left:2px;padding-right:2px}.tablewrap th:nth-child(4),.tablewrap td:nth-child(4){width:4.8em;min-width:4.8em;max-width:4.8em;padding-left:1px;padding-right:1px}.tablewrap th:nth-child(5),.tablewrap td:nth-child(5){width:4.4em;min-width:4.4em;max-width:4.4em;padding-left:2px;padding-right:2px}.tablewrap th:nth-child(6),.tablewrap td:nth-child(6){width:5.4em;min-width:5.4em;max-width:5.4em;padding-left:3px;padding-right:3px;white-space:nowrap}.tablewrap td.imei{font-family:Consolas,monospace;white-space:nowrap;width:6.4ch;min-width:6.4ch;max-width:6.4ch;padding-left:2px;padding-right:2px;font-weight:700}.check-box{font-size:15px!important;line-height:1;font-weight:400!important;padding-left:2px!important;padding-right:2px!important}.empty{padding:48px 20px!important;color:#94a3b8;text-align:center!important}
+.tablewrap{overflow:auto;border:1px solid #dde5ef;border-radius:12px;max-height:62vh}.tablewrap table{width:100%;border-collapse:separate;border-spacing:0;min-width:900px;font-size:15pt}.tablewrap th{position:sticky;top:0;background:var(--navy);color:#fff;padding:6px 2px;text-align:center;white-space:nowrap;z-index:1;font-size:9pt;font-weight:800}.tablewrap td{border-bottom:1px solid #edf1f6;border-right:1px solid #f1f4f8;padding:8px 4px;text-align:center;vertical-align:middle;font-size:15pt;font-weight:700;line-height:1.15}.tablewrap tbody tr:nth-child(even){background:#fafcff}.tablewrap td.model,.tablewrap td.note{text-align:left;white-space:normal;word-break:break-word;overflow:visible;text-overflow:clip;min-width:390px}.tablewrap td.special{width:4.4em;min-width:4.4em;max-width:4.4em;white-space:nowrap}.tablewrap td.grade{white-space:nowrap;word-break:keep-all;line-height:1.15;padding-top:6px;padding-bottom:6px;padding-left:1px;padding-right:1px;text-align:center!important;vertical-align:middle;font-size:15pt}.tablewrap td.grade.ungraded{font-size:11pt!important;text-align:center!important;padding-left:0!important;padding-right:0!important}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){width:6.4ch;min-width:6.4ch;max-width:6.4ch;padding-left:2px;padding-right:2px}.tablewrap th:nth-child(4),.tablewrap td:nth-child(4){width:4.8em;min-width:4.8em;max-width:4.8em;padding-left:1px;padding-right:1px}.tablewrap th:nth-child(5),.tablewrap td:nth-child(5){width:4.4em;min-width:4.4em;max-width:4.4em;padding-left:2px;padding-right:2px}.tablewrap th:nth-child(6),.tablewrap td:nth-child(6){width:5.4em;min-width:5.4em;max-width:5.4em;padding-left:3px;padding-right:3px;white-space:nowrap}.tablewrap td.imei{font-family:Consolas,monospace;white-space:nowrap;width:6.4ch;min-width:6.4ch;max-width:6.4ch;padding-left:2px;padding-right:2px;font-weight:700}.tablewrap th:nth-child(7),.tablewrap td:nth-child(7){width:3.6em;min-width:3.6em;max-width:3.6em;padding-left:1px;padding-right:1px}.check-box{font-size:15pt!important;line-height:1;font-weight:400!important;padding-left:1px!important;padding-right:1px!important}.empty{padding:48px 20px!important;color:#94a3b8;text-align:center!important}
 .print-title,.print-meta,.print-signatures{display:none}.print-signatures{margin:10px 0 14px;gap:28px;justify-content:space-between;font-size:11pt;font-weight:700}.print-signatures span{flex:1;border:1.5px solid #94a3b8;border-radius:8px;padding:14px 12px 12px;min-height:60px;background:#fff;display:flex;align-items:flex-start}@media(max-width:900px){.grid,.summary{grid-template-columns:1fr 1fr}.side-control{flex-basis:100%;min-width:0;padding:14px 0 0;border-left:0;border-top:1px solid #e5ebf3}}@media(max-width:560px){.grid,.summary{grid-template-columns:1fr}.wrap{padding:0 10px}.topbar{padding:18px}.setup-flex{gap:12px}.file-name{min-width:0;width:100%}.side-control{padding-top:12px}}
 @media print{@page{size:A4 portrait;margin:5mm 6mm}body{background:#fff}.topbar,.no-print,.setup,.summaryPanel,.category-panel{display:none!important}.wrap{max-width:none;margin:0;padding:0}.panel{box-shadow:none;border:0;padding:0;margin:0}.preview h2{display:none}.print-title{display:block!important;text-align:center;font-size:13pt;font-weight:800;margin-bottom:2px}.print-meta{display:flex!important;justify-content:space-between;font-size:8pt;margin-bottom:3px}.print-signatures{display:flex!important;margin:3px 0 4px;gap:10px}.print-signatures span{border:1px solid #555!important;border-radius:0!important;padding:5px 5px!important;min-height:28px!important;font-size:8.5pt!important}.tablewrap{overflow:visible;max-height:none;border:0}.tablewrap table{min-width:0;font-size:8.5pt;table-layout:fixed;border-collapse:collapse}.tablewrap th{position:static;background:#dbe7f6!important;color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-weight:800}.tablewrap th,.tablewrap td{padding:2px 1px;border:1px solid #777;word-break:normal;font-size:8.5pt;font-weight:700;line-height:1.15;height:auto;min-height:18px;vertical-align:middle}.tablewrap td.model,.tablewrap td.note{min-width:0;white-space:normal;word-break:break-word;overflow:visible;text-overflow:clip}.tablewrap td.special{white-space:nowrap}.tablewrap td.grade{white-space:nowrap;word-break:keep-all;line-height:1.15;padding-top:2px;padding-bottom:2px;padding-left:1px;padding-right:1px;text-align:center!important;vertical-align:middle;font-size:8.2pt}.tablewrap th:nth-child(1),.tablewrap td:nth-child(1){width:5%}.tablewrap th:nth-child(2),.tablewrap td:nth-child(2){width:59.5%}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){width:8%}.tablewrap th:nth-child(4),.tablewrap td:nth-child(4){width:5.5%}.tablewrap th:nth-child(5),.tablewrap td:nth-child(5){width:5%}.tablewrap th:nth-child(6),.tablewrap td:nth-child(6){width:8%}.tablewrap th:nth-child(7),.tablewrap td:nth-child(7){width:9%}}
 
 .print-pages{display:none}
 @media print{
-  @page{size:A4 portrait;margin:4mm 5mm}
-  .preview{display:none!important}
+  @page{size:A4 portrait;margin:5mm 6mm}
+  body{background:#fff}
+  .topbar,.setup,.summaryPanel,.category-panel,.preview{display:none!important}
+  .wrap{max-width:none;margin:0;padding:0}
   .print-pages{display:block!important}
-  .print-page{page-break-after:always;break-after:page;min-height:289mm;display:flex;flex-direction:column}
+  .print-page{page-break-after:always;break-after:page;display:block;width:100%}
   .print-page:last-child{page-break-after:auto;break-after:auto}
-  .print-page-title{text-align:center;font-size:11.5pt;font-weight:800;margin:0 0 1px}
-  .print-page-meta{display:flex;justify-content:space-between;font-size:7.2pt;font-weight:700;margin:0 0 2px}
-  .print-page-signatures{display:flex;gap:8px;margin:3mm 0 0;font-size:9.5pt;font-weight:800;flex:0 0 auto}
-  .print-page-signatures span{flex:1;border:1.2px solid #444;padding:5px 6px;min-height:25mm;display:flex;align-items:flex-start}
-  .print-page table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:7.5pt;flex:1}
-  .print-page th,.print-page td{border:1px solid #777;padding:.5px 1px;font-size:7.5pt;font-weight:700;line-height:1.02;vertical-align:middle}.print-page tbody tr{height:var(--row-h,5.1mm)}
-  .print-page th{background:#dbe7f6!important;color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;text-align:center;font-weight:800;white-space:nowrap}
-  .print-page td{text-align:center}
-  .print-page td.model{text-align:left;white-space:normal;word-break:break-word}
-  .print-page td.imei,.print-page td.grade,.print-page td.special,.print-page td.price,.print-page td.check{white-space:nowrap}
+  .print-page-title{text-align:center;font-size:13pt;font-weight:800;margin:0 0 3px;color:#172033}
+  .print-page-meta{display:flex;justify-content:space-between;gap:8px;font-size:8.5pt;font-weight:700;margin:0 0 5px;color:#172033}
+  .print-page-signatures{display:flex;gap:10px;margin:var(--sig-gap,3mm) 0 0;font-size:10pt;font-weight:800;page-break-inside:avoid;break-inside:avoid}
+  .print-page-signatures span{flex:1;border:1.2px solid #444;padding:6px 8px;min-height:var(--sig-h,18mm);height:var(--sig-h,18mm);display:flex;align-items:flex-start}
+  .print-page table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10.5pt}
+  .print-page thead{display:table-header-group}
+  .print-page th{background:#0f2747!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;text-align:center;font-size:9pt;font-weight:800;padding:3px 1px;border:1px solid #6f7d8d;white-space:nowrap}
+  .print-page td{border:1px solid #8a96a3;padding:4px 3px;text-align:center;vertical-align:middle;font-size:10.5pt;font-weight:700;line-height:1.15}
+  .print-page tbody tr:nth-child(even){background:#fafcff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-page td.model{text-align:left;white-space:normal;word-break:break-word;overflow:visible;text-overflow:clip}
+  .print-page td.imei{font-family:Consolas,"SFMono-Regular",monospace;white-space:nowrap;overflow:hidden;text-overflow:clip}
+  .print-page td.grade,.print-page td.special,.print-page td.price,.print-page td.check{white-space:nowrap}
+  .print-page td.grade{text-align:center!important;word-break:keep-all;padding-left:1px!important;padding-right:1px!important}.print-page td.grade.ungraded{font-size:9pt!important;text-align:center!important;padding-left:0!important;padding-right:0!important}
   .print-page tr{page-break-inside:avoid;break-inside:avoid}
-  .print-page th:nth-child(1),.print-page td:nth-child(1){width:4%}
-  .print-page th:nth-child(2),.print-page td:nth-child(2){width:64%}
-  .print-page th:nth-child(3),.print-page td:nth-child(3){width:7%}
-  .print-page th:nth-child(4),.print-page td:nth-child(4){width:5%}
-  .print-page th:nth-child(5),.print-page td:nth-child(5){width:5%}
-  .print-page th:nth-child(6),.print-page td:nth-child(6){width:7%}
-  .print-page th:nth-child(7),.print-page td:nth-child(7){width:8%}
+  .print-page th:nth-child(1),.print-page td:nth-child(1){width:5%}
+  .print-page th:nth-child(2),.print-page td:nth-child(2){width:58%}
+  .print-page th:nth-child(3),.print-page td:nth-child(3){width:10%}
+  .print-page th:nth-child(4),.print-page td:nth-child(4){width:6%}
+  .print-page th:nth-child(5),.print-page td:nth-child(5){width:7%}
+  .print-page th:nth-child(6),.print-page td:nth-child(6){width:9%}
+  .print-page th:nth-child(7),.print-page td:nth-child(7){width:5%}
 }
 </style>
 </head>
 <body>
-<div class="topbar"><h1>二手機盤點格式轉換工具 <small style="font-size:13px;opacity:.75">V2.24</small></h1><p>公司二手機回收紀錄 Excel → 自動辨識欄位 → 固定盤點格式 → 直接列印盤點</p></div>
+<div class="topbar"><h1>二手機盤點格式轉換工具 <small style="font-size:13px;opacity:.75">V2.35</small></h1><p>公司二手機回收紀錄 Excel → 自動辨識欄位 → 固定盤點格式 → 直接列印盤點</p></div>
 <div class="wrap">
 <section class="panel setup"><h2>① 匯入 Excel／門市盤點</h2><div class="setup-flex"><div class="setup-left"><div id="dropZone" class="drop-zone"><div class="import-row"><input id="fileInput" class="file-input" type="file" accept=".xlsx" /><label for="fileInput" class="file-picker">選擇 Excel 檔案</label><div id="fileName" class="file-name">尚未選擇檔案</div><button id="resetBtn" class="outline">清除</button></div><div class="drop-hint">也可以直接將 Excel 檔案拖曳到這個區域，放開後會自動讀取</div></div></div><div id="controlPanel" class="inline-control side-control" style="display:none"><div class="actions"><div id="boundStore" class="store-badge">門市：—</div><button id="printBtn" class="secondary">列印盤點表</button></div><p class="hint">匯入後會自動綁定檔案中的門市，不需要再選擇。</p></div></div><div id="status" class="status">選擇或拖曳 Excel 後會自動讀取資料並綁定門市。</div></section>
 <section class="panel summaryPanel" id="summaryPanel" style="display:none"><div class="summary"><div class="kpi"><span>目前盤點筆數</span><b id="kpiRows">0</b></div><div class="kpi"><span>目前門市</span><b id="kpiStore" style="font-size:18px">全部</b></div><div class="kpi"><span>資料更新時間</span><b id="kpiTime" style="font-size:18px">—</b></div></div></section>
@@ -63,7 +68,7 @@ button{height:42px;border:0;border-radius:10px;padding:0 17px;font-weight:800;cu
 </div>
 <script>
 const REQUIRED={category:'商品小類',brand:'品牌',model:'回收機款',imei:'IMEI',grade:'等級',store:'所在門市',status:'機款狀態',version:'國際版本',burn:'螢幕烙印',price:'設定售價'};
-const OUT=['序號','回收機款','IMEI / SN','等級','國 / 烙','售價','盤點確認'];
+const OUT=['序號','回收機款','IMEI / SN','等級','國 / 烙','售價','確認'];
 let sourceWB=null, sourceWS=null, rows=[], filtered=[], storeRows=[];let exportTime='',boundStore='',selectedCategory='全部',selectedBrand='全部';
 const $=id=>document.getElementById(id);const text=v=>{if(v==null)return'';if(typeof v==='object'){if(v.text!=null)return String(v.text);if(v.result!=null)return String(v.result);if(v.richText)return v.richText.map(x=>x.text).join('')}return String(v)};
 const norm=s=>String(s??'').toLowerCase().replace(/[\s_\-\/\\()（）:：]/g,'');const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
@@ -82,8 +87,25 @@ function last6(v){const x=String(v??'').replace(/\s+/g,'');return x.length<=6?x:
 function specialInfo(r){const a=[];const v=String(r.version||'').trim();const b=String(r.burn||'').trim();if(v && v!=='台版')a.push(v.charAt(0));if(b && b!=='無烙印')a.push(b.charAt(0));return a.join(' / ')}
 function priceValue(v){const n=Number(String(v??'').replace(/,/g,''));return Number.isFinite(n)?n:0}
 function priceText(v){return priceValue(v).toLocaleString('zh-TW')}
-function render(){const th=$('previewTable').querySelector('thead'),tb=$('previewTable').querySelector('tbody');th.innerHTML='<tr>'+OUT.map(x=>`<th>${x}</th>`).join('')+'</tr>';tb.innerHTML='';if(!filtered.length){tb.innerHTML='<tr><td colspan="7" class="empty">目前沒有符合條件的資料</td></tr>';renderPrintPages();return}filtered.forEach((r,i)=>{const tr=document.createElement('tr');[i+1,r.model,last6(r.imei),r.grade,specialInfo(r),priceText(r.price),'☐'].forEach((v,ci)=>{const td=document.createElement('td');td.textContent=v;if(ci===1)td.className='model';if(ci===2)td.className='imei';if(ci===3)td.className='grade';if(ci===4)td.className='special';if(ci===6)td.className='check-box';tr.appendChild(td)});tb.appendChild(tr)});renderPrintPages()}
-function renderPrintPages(){const root=$('printPages');root.innerHTML='';if(!filtered.length)return;const pageSize=50,totalPages=Math.ceil(filtered.length/pageSize);for(let start=0;start<filtered.length;start+=pageSize){const chunk=filtered.slice(start,start+pageSize),page=document.createElement('section');page.className='print-page';const pageNo=Math.floor(start/pageSize)+1,isLast=pageNo===totalPages;const categoryText=selectedCategory!=='全部'?`｜分類：${categoryLabel(selectedCategory)}`:'';const brandText=selectedBrand!=='全部'?`｜品牌：${selectedBrand}`:'';const usableMm=isLast?238:264;const rawRowMm=usableMm/Math.max(chunk.length,1);const rowMm=Math.max(4.6,Math.min(9.2,rawRowMm));page.style.setProperty('--row-h',rowMm.toFixed(2)+'mm');page.innerHTML=`<div class="print-page-title">二手機細盤點表</div><div class="print-page-meta"><span>門市：${esc(boundStore)}${esc(categoryText)}${esc(brandText)}</span><span>盤點日期：${today()}｜第 ${pageNo} / ${totalPages} 頁</span></div><table><thead><tr>${OUT.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody></tbody></table>${isLast?'<div class="print-page-signatures"><span>Apple 盤點人員：</span><span>Android 盤點人員：</span></div>':''}`;const body=page.querySelector('tbody');chunk.forEach((r,j)=>{const tr=document.createElement('tr');const vals=[start+j+1,r.model,last6(r.imei),r.grade,specialInfo(r),priceText(r.price),'☐'];vals.forEach((v,ci)=>{const td=document.createElement('td');td.textContent=v;td.className=ci===1?'model':ci===2?'imei':ci===3?'grade':ci===4?'special':ci===5?'price':ci===6?'check':'';tr.appendChild(td)});body.appendChild(tr)});root.appendChild(page)}}
-$('printBtn').addEventListener('click',()=>{renderPrintPages();window.print()});
+function render(){const th=$('previewTable').querySelector('thead'),tb=$('previewTable').querySelector('tbody');th.innerHTML='<tr>'+OUT.map(x=>`<th>${x}</th>`).join('')+'</tr>';tb.innerHTML='';if(!filtered.length){tb.innerHTML='<tr><td colspan="7" class="empty">目前沒有符合條件的資料</td></tr>';renderPrintPages();return}filtered.forEach((r,i)=>{const tr=document.createElement('tr');[i+1,r.model,last6(r.imei),r.grade,specialInfo(r),priceText(r.price),'☐'].forEach((v,ci)=>{const td=document.createElement('td');td.textContent=v;if(ci===1)td.className='model';if(ci===2)td.className='imei';if(ci===3)td.className='grade'+(String(v).trim()==='不分級'?' ungraded':'');if(ci===4)td.className='special';if(ci===6)td.className='check-box';tr.appendChild(td)});tb.appendChild(tr)});renderPrintPages()}
+function renderPrintPages(){const root=$('printPages');root.innerHTML='';if(!filtered.length)return;const page=document.createElement('section');page.className='print-page';const categoryText=selectedCategory!=='全部'?`｜分類：${categoryLabel(selectedCategory)}`:'';const brandText=selectedBrand!=='全部'?`｜品牌：${selectedBrand}`:'';page.innerHTML=`<div class="print-page-title">二手機細盤點表</div><div class="print-page-meta"><span>門市：${esc(boundStore)}${esc(categoryText)}${esc(brandText)}</span><span>盤點日期：${today()}</span></div><table><thead><tr>${OUT.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody></tbody></table><div class="print-page-signatures"><span>Apple 盤點人員：</span><span>Android 盤點人員：</span></div>`;const body=page.querySelector('tbody');filtered.forEach((r,i)=>{const tr=document.createElement('tr');const vals=[i+1,r.model,last6(r.imei),r.grade,specialInfo(r),priceText(r.price),'☐'];vals.forEach((v,ci)=>{const td=document.createElement('td');td.textContent=v;td.className=ci===1?'model':ci===2?'imei':ci===3?('grade'+(String(v).trim()==='不分級'?' ungraded':'')):ci===4?'special':ci===5?'price':ci===6?'check':'';tr.appendChild(td)});body.appendChild(tr)});root.appendChild(page)}
+function adjustSignatureForPrint(){
+  const page=document.querySelector('.print-page'), sig=document.querySelector('.print-page-signatures');
+  if(!page||!sig)return;
+  const mmToPx=96/25.4;
+  const printablePx=(297-10)*mmToPx; // A4 高度扣除 @page 上下各 5mm
+  const pageTop=page.getBoundingClientRect().top;
+  const sigTop=sig.getBoundingClientRect().top-pageTop;
+  let remain=printablePx-sigTop;
+  // 依最後一頁剩餘空間動態調整；最低保留 10mm 簽名高度
+  let gapMm=3, hMm=18;
+  if(remain < 25*mmToPx){gapMm=1.5;hMm=14}
+  if(remain < 19*mmToPx){gapMm=1;hMm=11}
+  if(remain < 15*mmToPx){gapMm=.5;hMm=10}
+  sig.style.setProperty('--sig-gap',gapMm+'mm');
+  sig.style.setProperty('--sig-h',hMm+'mm');
+}
+window.addEventListener('beforeprint',()=>{renderPrintPages();requestAnimationFrame(()=>adjustSignatureForPrint())});
+$('printBtn').addEventListener('click',()=>{renderPrintPages();requestAnimationFrame(()=>{adjustSignatureForPrint();window.print()})});
 </script>
 </body></html>
