@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>二手機盤點格式轉換工具 V2.35</title>
+<title>二手機盤點格式轉換工具 V2.36</title>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <style>
 :root{--navy:#0f2747;--blue:#1d5ca8;--line:#dbe4ef;--text:#172033;--muted:#69778c;--bg:#f4f7fb;--ok:#067647}
@@ -58,7 +58,7 @@ button{height:42px;border:0;border-radius:10px;padding:0 17px;font-weight:800;cu
 </style>
 </head>
 <body>
-<div class="topbar"><h1>二手機盤點格式轉換工具 <small style="font-size:13px;opacity:.75">V2.35</small></h1><p>公司二手機回收紀錄 Excel → 自動辨識欄位 → 固定盤點格式 → 直接列印盤點</p></div>
+<div class="topbar"><h1>二手機盤點格式轉換工具 <small style="font-size:13px;opacity:.75">V2.36</small></h1><p>公司二手機回收紀錄 Excel → 自動辨識欄位 → 固定盤點格式 → 直接列印盤點</p></div>
 <div class="wrap">
 <section class="panel setup"><h2>① 匯入 Excel／門市盤點</h2><div class="setup-flex"><div class="setup-left"><div id="dropZone" class="drop-zone"><div class="import-row"><input id="fileInput" class="file-input" type="file" accept=".xlsx" /><label for="fileInput" class="file-picker">選擇 Excel 檔案</label><div id="fileName" class="file-name">尚未選擇檔案</div><button id="resetBtn" class="outline">清除</button></div><div class="drop-hint">也可以直接將 Excel 檔案拖曳到這個區域，放開後會自動讀取</div></div></div><div id="controlPanel" class="inline-control side-control" style="display:none"><div class="actions"><div id="boundStore" class="store-badge">門市：—</div><button id="printBtn" class="secondary">列印盤點表</button></div><p class="hint">匯入後會自動綁定檔案中的門市，不需要再選擇。</p></div></div><div id="status" class="status">選擇或拖曳 Excel 後會自動讀取資料並綁定門市。</div></section>
 <section class="panel summaryPanel" id="summaryPanel" style="display:none"><div class="summary"><div class="kpi"><span>目前盤點筆數</span><b id="kpiRows">0</b></div><div class="kpi"><span>目前門市</span><b id="kpiStore" style="font-size:18px">全部</b></div><div class="kpi"><span>資料更新時間</span><b id="kpiTime" style="font-size:18px">—</b></div></div></section>
@@ -80,7 +80,7 @@ function categoryGroup(category){const c=String(category||'').trim();if(c==='智
 function categoryLabel(v){return ({'全部':'全部商品','智慧型手機':'智慧型手機','智慧型平板':'智慧型平板','筆電/電腦':'筆電 / 電腦','穿戴/藍牙':'藍芽喇叭 / 藍芽耳機 / 智慧手錶 / 智慧手環','其他':'其他'})[v]||v}
 function categoryRows(){return selectedCategory==='全部'?storeRows:storeRows.filter(r=>categoryGroup(r.category)===selectedCategory)}
 function updateBrandOptions(){const sel=$('brandSelect'),base=categoryRows();const brands=[...new Set(base.map(r=>String(r.brand||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-Hant',{numeric:true,sensitivity:'base'}));sel.innerHTML='<option value="全部">全部品牌</option>'+brands.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join('');if(selectedBrand!=='全部'&&!brands.includes(selectedBrand))selectedBrand='全部';sel.value=selectedBrand}
-function applyFilters(){const base=categoryRows();filtered=(selectedBrand==='全部'?base:base.filter(r=>String(r.brand||'').trim()===selectedBrand)).slice().sort((a,b)=>a.model.localeCompare(b.model,'en',{numeric:true,sensitivity:'base'}));$('kpiRows').textContent=filtered.length.toLocaleString();const brandText=selectedBrand==='全部'?'全部品牌':selectedBrand;$('categoryCount').textContent=`${categoryLabel(selectedCategory)}｜${brandText}｜${filtered.length.toLocaleString()} 筆`;const c=selectedCategory!=='全部'?`｜分類：${categoryLabel(selectedCategory)}`:'';const b=selectedBrand!=='全部'?`｜品牌：${selectedBrand}`:'';$('printStore').textContent='門市：'+boundStore+c+b;render()}
+function applyFilters(){const base=categoryRows();const categoryOrder={'智慧型手機':0,'智慧型平板':1,'筆電/電腦':2,'穿戴/藍牙':3,'其他':4};filtered=(selectedBrand==='全部'?base:base.filter(r=>String(r.brand||'').trim()===selectedBrand)).slice().sort((a,b)=>{if(selectedCategory==='全部'){const ga=categoryGroup(a.category),gb=categoryGroup(b.category),rank=(categoryOrder[ga]??99)-(categoryOrder[gb]??99);if(rank!==0)return rank}return a.model.localeCompare(b.model,'en',{numeric:true,sensitivity:'base'})});$('kpiRows').textContent=filtered.length.toLocaleString();const brandText=selectedBrand==='全部'?'全部品牌':selectedBrand;$('categoryCount').textContent=`${categoryLabel(selectedCategory)}｜${brandText}｜${filtered.length.toLocaleString()} 筆`;const c=selectedCategory!=='全部'?`｜分類：${categoryLabel(selectedCategory)}`:'';const b=selectedBrand!=='全部'?`｜品牌：${selectedBrand}`:'';$('printStore').textContent='門市：'+boundStore+c+b;render()}
 $('categorySelect').addEventListener('change',e=>{selectedCategory=e.target.value;selectedBrand='全部';updateBrandOptions();applyFilters()});
 $('brandSelect').addEventListener('change',e=>{selectedBrand=e.target.value;applyFilters()});
 function last6(v){const x=String(v??'').replace(/\s+/g,'');return x.length<=6?x:x.slice(-6)}
